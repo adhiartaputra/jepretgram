@@ -3,15 +3,15 @@
   <navbar></navbar>
     <div class="container">
       <div class="card-deck">
-      <div class="card">
-        <img class="card-img-top" src="http://5.media.bustedtees.cvcdn.com/4/-/bustedtees.041d1a44-7c80-4115-a4c3-b41cdf28.gif" alt="Card image cap">
+      <div class="card" v-for='(data, index) in file' :key=index>
+        <img class="card-img-top" :src="data.url" alt="Card image cap">
         <div class="card-body">
           <i class="far fa-heart"></i>
           <i class="fas fa-heart"></i>
         </div>
         <div class="card-body">
-          <h5 class="card-title">Image Title</h5>
-          <p class="card-text">Image Description</p>
+          <h5 class="card-title">{{data.title}}</h5>
+          <p class="card-text">{{data.description}}</p>
         </div>
         <div class="card-footer">
           <small class="text-muted">Last updated 3 mins ago</small>
@@ -26,8 +26,22 @@
 import Navbar from '@/components/Navbar'
 export default {
   name: 'Home',
+  data () {
+    return {
+      file: null
+    }
+  },
   components: {
     Navbar
+  },
+  created () {
+    this.getData()
+  },
+  methods: {
+    getData () {
+      this.$store.state.file = this.file
+      return this.$store.state.file
+    }
   }
 }
 </script>
